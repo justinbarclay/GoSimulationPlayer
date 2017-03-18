@@ -473,6 +473,11 @@ class GoBoard(object):
         #else:
         #    raise ValueError("This point is out of range!")
 
+    def find_atari_neighbor(self, point):
+        neighbor = self._neighbors(point)
+        for item in neighbor:
+            if self.board[item] == EMPTY:
+                return item
 
     def _diag_neighbors(self,point):
         """

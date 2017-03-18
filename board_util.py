@@ -143,6 +143,13 @@ class GoBoardUtil(object):
         else:
             return GoBoardUtil.filleye_filter(board, move, color)
 
+    def move_captures_atari(board, move, color):
+        if board._liberty(board.last_move) == 1:
+            if GoBoardUtil.selfatari_filter(board, move, color) and \
+               GoBoardUtil.filleye_filter(board, move, color):
+                return board.find_atari_neighbor(board.last_move)
+        return None
+        
     @staticmethod 
     def filter_moves_and_generate(board, moves, check_selfatari):
         color = board.current_player
