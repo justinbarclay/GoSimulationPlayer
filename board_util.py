@@ -82,11 +82,9 @@ class GoBoardUtil(object):
         """
         pattern_moves = GoBoardUtil.generate_pattern_moves(board)
         pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
-
         atari_capture_move = GoBoardUtil.captures_atari(board, board.current_player)
-        print("atari_capture_move:" + str(atari_capture_move) + '\n')
         if atari_capture_move:
-            return list(GoBoardUtil.point_to_coord(atari_capture_move, board.size)), "AtariCapture"
+            return [atari_capture_move], "AtariCapture"
         if len(pattern_moves) > 0:
             return pattern_moves, "Pattern"
         return GoBoardUtil.generate_random_moves(board), "Random"
