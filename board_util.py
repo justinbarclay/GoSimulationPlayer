@@ -156,7 +156,7 @@ class GoBoardUtil(object):
 
     def defends_atari(board, color):
         # If our last_move is now in atari
-        points = captures_atari(board, board.last2_move, color)
+        point = captures_atari(board, board.last2_move, color)
         if point:
             #Simulate the next move
             simul_board = board.copy()
