@@ -336,6 +336,35 @@ class GoBoard(object):
                     met_points.append(n)
         return liberty
 
+    def num_liberties_and_positions(self, point, color):
+        """
+        ---------
+        Return
+        ---------
+        liberty: int
+             Number of liberty that the given point has
+        """
+
+        group_points = [point]
+        liberty=0
+        liberty_positions = list()
+        met_points=[point]
+        while group_points:
+            p=group_points.pop()
+            met_points.append(p)
+            neighbors = self._neighbors(p)
+            for n in neighbors:
+                if n not in met_points:
+                    if self.board[n]==BORDER:
+                        continue
+                    if self.board[n]==color: 
+                        group_points.append(n)
+                    elif self.board[n]==EMPTY:
+                        liberty_positions.append(n)
+                        liberty+=1
+                    met_points.append(n)
+        return liberty,liberty_positions
+
 
     def _liberty_flood(self,board):
         """
