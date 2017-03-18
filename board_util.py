@@ -80,14 +80,14 @@ class GoBoardUtil(object):
             Use in UI only. For playing, use generate_move_with_filter
             which is more efficient
         """
-        pattern_moves = GoBoardUtil.generate_pattern_moves(board)
-        pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
+        if atari_capture_move:
+            return [atari_capture_move], "AtariCapture"
         atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
         if atari_defense_move:
             return [atari_defense_move], "AtariDefense"
-        if atari_capture_move:
-            return [atari_capture_move], "AtariCapture"
+        pattern_moves = GoBoardUtil.generate_pattern_moves(board)
+        pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
         if len(pattern_moves) > 0:
             return pattern_moves, "Pattern"
         return GoBoardUtil.generate_random_moves(board), "Random"
@@ -149,8 +149,8 @@ class GoBoardUtil(object):
         else:
             return GoBoardUtil.filleye_filter(board, move, color)
 
-    def captures_atari(board, previous_move, color):
-        num_libs, position = board.num_liberties_and_positions(previous_move, GoBoardUtil.opponent(color))
+    def captures_atari(board, to_capture, color):
+        num_libs, position = board.num_liberties_and_positions(to_capture, GoBoardUtil.opponent(color))
 
         if num_libs == 1:
             if not GoBoardUtil.selfatari_filter(board, position[0], color):
@@ -222,7 +222,35 @@ class GoBoardUtil(object):
                     opponentPointsChecked.union(pointsChecked)
         return None
             
-        # def travel_north(board, 
+        def find_north_south_opponent(board, point, direction, color):
+            current_point = point
+            #content of board at current point
+            content = board[current_point]
+            opponent = GoBoardUtil.opponent(color)
+            while(content != BORDER or content != opponent):
+                current_point = current_point + (direction * board.size)
+                content = board[current_point]
+            # If we've reached a board, we can't capture borders
+            if(content == BORDER):
+                return None
+            else:
+                return current_point
+                
+        def find_east_west_opponent(board, point, direction, color):
+            current_point = point
+            #content of board at current point
+            content = board[current_point]
+            opponent = GoBoardUtil.opponent(color)
+            # Travel in direction until we reach board or find opponent
+            while(content != BORDER or content != opponent):
+                current_point = current_point + (direction * 1)
+                content = board[current_point]
+            # If we've reached a board, we can't capture borders
+            if(content == BORDER):
+                return None
+            else:
+                return current_point
+            
     @staticmethod 
     def filter_moves_and_generate(board, moves, check_selfatari):
         color = board.current_player
