@@ -82,6 +82,11 @@ class GoBoardUtil(object):
         """
         pattern_moves = GoBoardUtil.generate_pattern_moves(board)
         pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
+
+        atari_capture_move = GoBoardUtil.captures_atari(board, board.current_player)
+        print("atari_capture_move:" + str(atari_capture_move) + '\n')
+        if atari_capture_move:
+            return list(GoBoardUtil.point_to_coord(atari_capture_move, board.size)), "AtariCapture"
         if len(pattern_moves) > 0:
             return pattern_moves, "Pattern"
         return GoBoardUtil.generate_random_moves(board), "Random"
@@ -144,10 +149,14 @@ class GoBoardUtil(object):
             return GoBoardUtil.filleye_filter(board, move, color)
 
     def captures_atari(board, color):
-        num_libs, position = board.num_liberties_and_positions(board.last_move, color)
+        print("last_move" + str(board.last_move) + '\n')
+        # print("board" + board.get_twoD_board() + '\n')
+        num_libs, position = board.num_liberties_and_positions(board.last_move, GoBoardUtil.opponent(color))
+        print("num_libs : " + str(num_libs) + '\n')
+        print("position : " + str(position) + '\n')
+
         if num_libs == 1:
-            if GoBoardUtil.selfatari_filter(board, position, color) and \
-               GoBoardUtil.filleye_filter(board, position, color):
+            if not GoBoardUtil.selfatari_filter(board, position[0], color):
                 return position[0]
         return None
         
