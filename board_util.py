@@ -146,8 +146,8 @@ class GoBoardUtil(object):
         else:
             return GoBoardUtil.filleye_filter(board, move, color)
 
-    def captures_atari(board, previous_move, color):
-        num_libs, position = board.num_liberties_and_positions(previous_move, GoBoardUtil.opponent(color))
+    def captures_atari(board, to_capture, color):
+        num_libs, position = board.num_liberties_and_positions(to_capture, GoBoardUtil.opponent(color))
 
         if num_libs == 1:
             if not GoBoardUtil.selfatari_filter(board, position[0], color):
@@ -172,7 +172,7 @@ class GoBoardUtil(object):
             move = captures_atari(board, first_atari, GoBoardUtil.opponent(color))
             #Simulate the next move
             simul_board = board.copy()
-            # See if we move to that point
+            # See if move is legal
             legal = board.check_legal(color, move)
             simulBoard.move(move, color)
             # can opponent capture that point then
@@ -184,9 +184,52 @@ class GoBoardUtil(object):
                 # Captures enemies last move or returns None
                 return find_capture_point(board, point, color)
 
-        # def find_capture_point(board, point, color):
+        def find_capture_point(board, point, color):
+            north = find_north_south_opponent(board, point, -1, color)
+            south = find_north_south_opponent(board, point, 1, color)
+            east = find_east_west_opponent(board, point, -1, color)
+            west = find_east_west_opponent(board, point, 1, color)
+            capture_point = None
+            if(north):
+                capture_point = captures_atari(board, north, color)
+            elif(south and not capture_point):
+                capture_point = captures_atari(board, south, color)
+            elif(east and not capture_point):
+                capture_point = captures_atari(board, east, color)
+            elif(west and not capture_point):
+                capture_point = captures_atari(board, west, color)
+                
+
             
-        # def travel_north(board, 
+        def find_north_south_opponent(board, point, direction, color):
+            current_point = point
+            #content of board at current point
+            content = board[current_point]
+            opponent = GoBoardUtil.opponent(color)
+            while(content != BORDER or content != opponent):
+                current_point = current_point + (direction * board.size)
+                content = board[current_point]
+            # If we've reached a board, we can't capture borders
+            if(content == BORDER):
+                return None
+            else:
+                return current_point
+                
+        def find_east_west_opponent(board, point, direction, color):
+            current_point = point
+            #content of board at current point
+            content = board[current_point]
+            opponent = GoBoardUtil.opponent(color)
+            # Travel in direction until we reach board or find opponent
+            while(content != BORDER or content != opponent):
+                current_point = current_point + (direction * 1)
+                content = board[current_point]
+            # If we've reached a board, we can't capture borders
+            if(content == BORDER):
+                return None
+            else:
+                return current_point
+            
     @staticmethod 
     def filter_moves_and_generate(board, moves, check_selfatari):
         color = board.current_player
