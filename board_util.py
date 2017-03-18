@@ -82,7 +82,7 @@ class GoBoardUtil(object):
         """
         pattern_moves = GoBoardUtil.generate_pattern_moves(board)
         pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
-        atari_capture_move = GoBoardUtil.captures_atari(board, board.current_player)
+        atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
             return [atari_capture_move], "AtariCapture"
         if len(pattern_moves) > 0:
@@ -146,17 +146,30 @@ class GoBoardUtil(object):
         else:
             return GoBoardUtil.filleye_filter(board, move, color)
 
-    def captures_atari(board, color):
-        print("last_move" + str(board.last_move) + '\n')
-        # print("board" + board.get_twoD_board() + '\n')
-        num_libs, position = board.num_liberties_and_positions(board.last_move, GoBoardUtil.opponent(color))
-        print("num_libs : " + str(num_libs) + '\n')
-        print("position : " + str(position) + '\n')
+    def captures_atari(board, previous_move, color):
+        num_libs, position = board.num_liberties_and_positions(previous_move, GoBoardUtil.opponent(color))
 
         if num_libs == 1:
             if not GoBoardUtil.selfatari_filter(board, position[0], color):
                 return position[0]
         return None
+
+    def defends_atari(board, color):
+        # If our last_move is now in atari
+        points = captures_atari(board, board.last2_move, color)
+        if point:
+            #Simulate the next move
+            simul_board = board.copy()
+            # See if we move to that point
+            simulBoard.move(point, color)
+            # can opponent capture that point then
+            opponent_capture_point = captures_atari(simul_board, simul_board.last_move, simul_board.opponent(color))
+            # If opponent can't capture point, it's a runaway
+            if not opponent_capture_point:
+                return point
+            else:
+                # Captures enemies last move or returns None
+                return captures_atari(board, board.last_move, color)
         
     @staticmethod 
     def filter_moves_and_generate(board, moves, check_selfatari):
@@ -180,7 +193,6 @@ class GoBoardUtil(object):
         """
         move = None
         if use_pattern:
-            return captures_atari(board, board.current_player)
             moves = GoBoardUtil.generate_pattern_moves(board)
             move = GoBoardUtil.filter_moves_and_generate(board, moves, 
                                                          check_selfatari)
