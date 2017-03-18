@@ -155,22 +155,38 @@ class GoBoardUtil(object):
         return None
 
     def defends_atari(board, color):
-        # If our last_move is now in atari
-        points = captures_atari(board, board.last2_move, color)
-        if point:
+
+        # get list of neghbouring points ot last move
+        points = board._neighbors(board, board.last_move)
+
+        # Collector for our points
+        players_ = []
+        
+        for point in points:
+            # If neigbour is our color and if it's in atari
+            if board[point] == color and captures_atari(board, point, GoBoardUtil.opponent(color)):
+                player_points.append(point)
+        if len(player_points) > 0:
+            first_atari = player_points[0]
+            # Return only point we can play
+            move = captures_atari(board, first_atari, GoBoardUtil.opponent(color))
             #Simulate the next move
             simul_board = board.copy()
             # See if we move to that point
-            simulBoard.move(point, color)
+            legal = board.check_legal(color, move)
+            simulBoard.move(move, color)
             # can opponent capture that point then
             opponent_capture_point = captures_atari(simul_board, simul_board.last_move, simul_board.opponent(color))
             # If opponent can't capture point, it's a runaway
-            if not opponent_capture_point:
+            if not opponent_capture_point and legal:
                 return point
             else:
                 # Captures enemies last move or returns None
-                return captures_atari(board, board.last_move, color)
-        
+                return find_capture_point(board, point, color)
+
+        # def find_capture_point(board, point, color):
+            
+        # def travel_north(board, 
     @staticmethod 
     def filter_moves_and_generate(board, moves, check_selfatari):
         color = board.current_player
