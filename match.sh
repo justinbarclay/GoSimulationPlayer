@@ -1,10 +1,10 @@
 #!/bin/bash
 set -eu
-RESULTDIR="test2"
+RESULTDIR="test4"
 # Modify paths to your programs below as needed
-NOGO1="../Go3/Go3/Go3.py"
+NOGO1="engines/Go4Original/Go4/Go4.py"
 NOGO2="Go4.py"
-TWOGTP="../../gogui-1.4.9/bin/gogui-twogtp " 
+TWOGTP="gogui-1.4.9/bin/gogui-twogtp " 
 
 run() {
 echo Match with $NUGAMES games on board size $BOARDSIZE. Storing results in $RESULTDIR
