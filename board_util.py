@@ -295,7 +295,7 @@ class GoBoardUtil(object):
         move = None
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
-            move = atari_capture_move
+            move = [atari_capture_move]
             return move
         atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
         if atari_defense_move:
