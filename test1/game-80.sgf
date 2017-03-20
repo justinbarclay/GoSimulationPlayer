@@ -1,0 +1,13 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[5]
+KM[6.5]PB[Go3]PW[Go4]DT[2017-03-20]RE[W+9.5]
+C[Black command: engines/Go3/Go3/Go3.py
+White command: Go4.py
+Black version: 0.22
+White version: 0.3
+Result[Black\]: W+9.5
+Result[White\]: W+9.5
+Host: Sann (Intel(R) Core(TM) i5-4300U CPU @ 1.90GHz)
+Date: March 20, 2017 6:13:10 AM MDT]
+;B[ab];W[bb];B[dc];W[bd];B[bc];W[dd];B[cd];W[ed];B[ea];W[db]
+;B[ce];W[be];B[ad];W[cb];B[cc];W[ec];B[eb];W[da];B[eb];W[ea]
+;B[ae];W[ba];B[de];W[aa];B[];W[bd];B[ac];W[];B[])
