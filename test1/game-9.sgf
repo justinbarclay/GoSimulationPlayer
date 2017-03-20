@@ -1,0 +1,23 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[5]
+KM[6.5]PB[Go3]PW[Go4]DT[2017-03-20]RE[W+31.5]
+C[Black command: engines/Go3/Go3/Go3.py
+White command: Go4.py
+Black version: 0.22
+White version: 0.3
+Result[Black\]: W+31.5
+Result[White\]: W+31.5
+Host: Sann (Intel(R) Core(TM) i5-4300U CPU @ 1.90GHz)
+Date: March 20, 2017 4:33:29 AM MDT]
+;B[ac];W[cd];B[dd];W[ce];B[de];W[ad];B[ed];W[cb];B[bc];W[da]
+;B[cc];W[dc];B[ca];W[ba];B[db];W[eb];B[bd];W[ec];B[bb];W[ee]
+;B[dd];W[be];B[ae];W[ed];B[aa];W[ab];B[de];W[be];B[ce];W[aa]
+;B[ca];W[ba];B[ab];W[aa];B[ca];W[ba];B[be];W[aa];B[ca];W[ba]
+;B[cd];W[aa];B[ca];W[ba];B[];W[aa];B[ca];W[ba];B[];W[aa]
+;B[ca];W[ba];B[];W[aa];B[ca];W[ba];B[];W[aa];B[ca];W[ba]
+;B[];W[aa];B[ca];W[ba];B[];W[aa];B[ca];W[ba];B[];W[aa]
+;B[ca];W[ba];B[];W[aa];B[ca];W[ba];B[];W[aa];B[ca];W[ba]
+;B[];W[aa];B[ca];W[ba];B[];W[aa];B[ca];W[ba];B[];W[aa]
+;B[ca];W[ba];B[];W[aa];B[ca];W[ba];B[ad];W[aa];B[cc];W[ae]
+;B[de];W[be];B[bc];W[ce];B[dd];W[cd];B[bb];W[de];B[];W[ad]
+;B[ab];W[bd];B[ca];W[ba];B[];W[ac];B[];W[aa];B[bc];W[cc]
+;B[ab];W[bb];B[];W[])
