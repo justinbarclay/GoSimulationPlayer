@@ -83,9 +83,9 @@ class GoBoardUtil(object):
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
             return [atari_capture_move], "AtariCapture"
-        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        if atari_defense_move:
-            return [atari_defense_move], "AtariDefense"
+        # atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        # if atari_defense_move:
+        #     return [atari_defense_move], "AtariDefense"
         pattern_moves = GoBoardUtil.generate_pattern_moves(board)
         pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
         if len(pattern_moves) > 0:
@@ -217,7 +217,7 @@ class GoBoardUtil(object):
             currentPosition = toExplore.pop()
             # is it your own team? and has it been explored?
             if board.board[currentPosition] == color and currentPosition not in explored:
-                toExplore = toExplore + _neighbors(point)
+                toExplore = toExplore + board._neighbors(point)
                 explored.append(currentPosition)
             elif board.board[currentPosition] == GoBoardUtil.opponent(color) and currentPosition not in opponentPointsChecked:
                 # simulate capturing block
@@ -284,10 +284,10 @@ class GoBoardUtil(object):
         if atari_capture_move:
             move = atari_capture_move
             return move
-        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        if atari_defense_move:
-            move = atari_defense_move
-            return move
+        # atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        # if atari_defense_move:
+        #     move = atari_defense_move
+        #     return move
         if use_pattern:
             moves = GoBoardUtil.generate_pattern_moves(board)
             move = GoBoardUtil.filter_moves_and_generate(board, moves, 
