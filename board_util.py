@@ -170,7 +170,7 @@ class GoBoardUtil(object):
         points = board._neighbors(board.last_move)
         # Collector for our points
         player_points = []
-        print(str(points))
+        # print(str(points))
         for point in points:
             # If neigbour is our color and if it's in atari
             if board.board[point] == color and GoBoardUtil.captures_atari(board, point, GoBoardUtil.opponent(color)):
@@ -190,10 +190,10 @@ class GoBoardUtil(object):
             opponent_capture_point = GoBoardUtil.captures_atari(simul_board, simul_board.last_move, GoBoardUtil.opponent(color))
             # If opponent can't capture point, it's a runaway
             if not opponent_capture_point and legal:
-                print("Option 01 Taken")
+                # print("Option 01 Taken")
                 return move
             else:
-                print("Option 02 Taken")
+                # print("Option 02 Taken")
                 # Captures enemies last move or returns None
                 return GoBoardUtil.find_capture_point(board, first_atari, color)
 
