@@ -80,11 +80,14 @@ class GoBoardUtil(object):
             Use in UI only. For playing, use generate_move_with_filter
             which is more efficient
         """
-        pattern_moves = GoBoardUtil.generate_pattern_moves(board)
-        pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
             return [atari_capture_move], "AtariCapture"
+        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        if atari_defense_move:
+            return [atari_defense_move], "AtariDefense"
+        pattern_moves = GoBoardUtil.generate_pattern_moves(board)
+        pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
         if len(pattern_moves) > 0:
             return pattern_moves, "Pattern"
         return GoBoardUtil.generate_random_moves(board), "Random"
@@ -154,52 +157,70 @@ class GoBoardUtil(object):
                 return position[0]
         return None
 
+    def captures_atari_new(board, previous_move, color):
+        num_libs, position, points_explored = board.num_liberties_and_positions_and_checked_positions(previous_move, GoBoardUtil.opponent(color))
+
+        if num_libs == 1:
+            if not GoBoardUtil.selfatari_filter(board, position[0], color):
+                return position[0], None
+        return None, points_explored
+
     def defends_atari(board, color):
-
         # get list of neghbouring points ot last move
-        points = board._neighbors(board, board.last_move)
-
+        points = board._neighbors(board.last_move)
         # Collector for our points
-        players_ = []
-        
+        player_points = []
+        print(str(points))
         for point in points:
             # If neigbour is our color and if it's in atari
-            if board[point] == color and captures_atari(board, point, GoBoardUtil.opponent(color)):
+            if board.board[point] == color and GoBoardUtil.captures_atari(board, point, GoBoardUtil.opponent(color)):
                 player_points.append(point)
+
+        print(str(player_points))
         if len(player_points) > 0:
             first_atari = player_points[0]
             # Return only point we can play
-            move = captures_atari(board, first_atari, GoBoardUtil.opponent(color))
+            move = GoBoardUtil.captures_atari(board, first_atari, GoBoardUtil.opponent(color))
             #Simulate the next move
             simul_board = board.copy()
-            # See if move is legal
-            legal = board.check_legal(color, move)
-            simulBoard.move(move, color)
+            # See if we move to that point
+            legal = board.check_legal(move, color)
+            simul_board.move(move, color)
             # can opponent capture that point then
-            opponent_capture_point = captures_atari(simul_board, simul_board.last_move, simul_board.opponent(color))
+            opponent_capture_point = GoBoardUtil.captures_atari(simul_board, simul_board.last_move, GoBoardUtil.opponent(color))
             # If opponent can't capture point, it's a runaway
             if not opponent_capture_point and legal:
-                return point
+                print("Option 01 Taken")
+                return move
             else:
+                print("Option 02 Taken")
                 # Captures enemies last move or returns None
-                return find_capture_point(board, point, color)
+                return GoBoardUtil.find_capture_point(board, first_atari, color)
 
-        def find_capture_point(board, point, color):
-            north = find_north_south_opponent(board, point, -1, color)
-            south = find_north_south_opponent(board, point, 1, color)
-            east = find_east_west_opponent(board, point, -1, color)
-            west = find_east_west_opponent(board, point, 1, color)
-            capture_point = None
-            if(north):
-                capture_point = captures_atari(board, north, color)
-            elif(south and not capture_point):
-                capture_point = captures_atari(board, south, color)
-            elif(east and not capture_point):
-                capture_point = captures_atari(board, east, color)
-            elif(west and not capture_point):
-                capture_point = captures_atari(board, west, color)
-                
-
+    def find_capture_point(board, point, color):
+        # set of opponent points that do have been checked
+        opponentPointsChecked = set()
+        # which of our own points are to be explored next
+        toExplore = board._neighbors(point)
+        # points of our own which have been explored
+        explored = []
+        while len(toExplore) > 0:
+            # pop the next to explore
+            currentPosition = toExplore.pop()
+            # is it your own team? and has it been explored?
+            if board.board[currentPosition] == color and currentPosition not in explored:
+                toExplore = toExplore + _neighbors(point)
+                explored.append(currentPosition)
+            elif board.board[currentPosition] == GoBoardUtil.opponent(color) and currentPosition not in opponentPointsChecked:
+                # simulate capturing block
+                simul_board = board.copy()
+                atariPoint, pointsChecked = GoBoardUtil.captures_atari_new(simul_board, currentPosition, color)
+                if atariPoint:
+                    return atariPoint
+                else:
+                    opponentPointsChecked.add(currentPosition)
+                    opponentPointsChecked.union(pointsChecked)
+        return None
             
         def find_north_south_opponent(board, point, direction, color):
             current_point = point
