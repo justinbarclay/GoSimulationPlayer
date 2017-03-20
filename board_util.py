@@ -150,6 +150,11 @@ class GoBoardUtil(object):
             return GoBoardUtil.filleye_filter(board, move, color)
 
     def captures_atari(board, to_capture, color):
+        # print("board is  ", board, type(board), '\n')
+        # print('to_capture is ', to_capture, type(to_capture), '\n')
+        # print('color is ', color, type(color), '\n')
+        if to_capture is None:
+            return None
         num_libs, position = board.num_liberties_and_positions(to_capture, GoBoardUtil.opponent(color))
 
         if num_libs == 1:
@@ -166,6 +171,9 @@ class GoBoardUtil(object):
         return None, points_explored
 
     def defends_atari(board, color):
+        if board.last_move is None:
+            return None
+
         # get list of neghbouring points ot last move
         points = board._neighbors(board.last_move)
         # Collector for our points
@@ -176,7 +184,7 @@ class GoBoardUtil(object):
             if board.board[point] == color and GoBoardUtil.captures_atari(board, point, GoBoardUtil.opponent(color)):
                 player_points.append(point)
 
-        print(str(player_points))
+        #print(str(player_points))
         if len(player_points) > 0:
             first_atari = player_points[0]
             # Return only point we can play
@@ -272,6 +280,14 @@ class GoBoardUtil(object):
             use_pattern: Use pattern policy?
         """
         move = None
+        atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
+        if atari_capture_move:
+            move = atari_capture_move
+            return move
+        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        if atari_defense_move:
+            move = atari_defense_move
+            return move
         if use_pattern:
             moves = GoBoardUtil.generate_pattern_moves(board)
             move = GoBoardUtil.filter_moves_and_generate(board, moves, 
@@ -279,6 +295,13 @@ class GoBoardUtil(object):
         if move == None:
             move = GoBoardUtil.generate_random_move(board)
         return move 
+
+        
+        
+        
+
+
+
     
     @staticmethod
     def selfatari(board, move, color):

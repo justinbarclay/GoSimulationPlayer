@@ -344,7 +344,9 @@ class GoBoard(object):
         liberty: int
              Number of liberty that the given point has
         """
-
+        # print("point inside num_liberties_and_positions ", point, type(point), '\n')
+        # if point is None:
+        #     return None, None
         group_points = [point]
         liberty=0
         liberty_positions = list()
