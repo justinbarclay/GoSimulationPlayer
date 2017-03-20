@@ -1,8 +1,8 @@
 #!/bin/bash
 set -eu
-RESULTDIR="test1"
+RESULTDIR="test4"
 # Modify paths to your programs below as needed
-NOGO1="engines/Go3/Go3/Go3.py"
+NOGO1="engines/Go4Original/Go4/Go4.py"
 NOGO2="Go4.py"
 TWOGTP="gogui-1.4.9/bin/gogui-twogtp " 
 
