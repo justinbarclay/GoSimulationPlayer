@@ -72,9 +72,9 @@ class Go4Player(object):
         captureMove = GoBoardUtil.captures_atari(board, board.last_move, toplay)
         if (captureMove):
             return captureMove
-        # captureDefense = GoBoardUtil.defends_atari(board, toplay)
-        # if (captureDefense):
-        #     return captureDefense
+        captureDefense = GoBoardUtil.defends_atari(board, toplay)
+        if (captureDefense):
+            return captureDefense
 
         cboard = board.copy()
         emptyPoints = board.get_empty_points()

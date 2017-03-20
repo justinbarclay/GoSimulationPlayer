@@ -304,9 +304,13 @@ class GtpConnection():
         policy_moves, type_of_move = GoBoardUtil.generate_all_policy_moves(self.board,
                                                 self.go_engine.pattern,
                                                 self.go_engine.selfatari)
+        # print("policy_moves ", policy_moves,type(policy_moves), '\n')
+        # if isinstance(policy_moves[0], list):
+        #     policy_moves = policy_moves[0]
         if len(policy_moves) == 0:
             self.respond("Pass")
         else:
+
             response = type_of_move + " " + GoBoardUtil.sorted_point_string(policy_moves, self.board.NS)
             self.respond(response)
 

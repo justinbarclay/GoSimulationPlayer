@@ -56,7 +56,12 @@ class GoBoardUtil(object):
     @staticmethod
     def sorted_point_string(points, ns):
         result = []
+        if isinstance(points[0], list):
+            points = points[0]
+
         for point in points:
+            if point is None:
+                continue
             x, y = GoBoardUtil.point_to_coord(point, ns)
             result.append(GoBoardUtil.format_point((x, y)))
         return ' '.join(sorted(result))
@@ -83,9 +88,9 @@ class GoBoardUtil(object):
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
             return [atari_capture_move], "AtariCapture"
-        # atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        # if atari_defense_move:
-        #     return [atari_defense_move], "AtariDefense"
+        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        if atari_defense_move:
+            return atari_defense_move, "AtariDefense"
         pattern_moves = GoBoardUtil.generate_pattern_moves(board)
         pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
         if len(pattern_moves) > 0:
@@ -171,9 +176,10 @@ class GoBoardUtil(object):
         return None, points_explored
 
     def defends_atari(board, color):
+        
         if board.last_move is None:
             return None
-
+        possible_move_list=list()
         # get list of neghbouring points ot last move
         points = board._neighbors(board.last_move)
         # Collector for our points
@@ -198,12 +204,19 @@ class GoBoardUtil(object):
             opponent_capture_point = GoBoardUtil.captures_atari(simul_board, simul_board.last_move, GoBoardUtil.opponent(color))
             # If opponent can't capture point, it's a runaway
             if not opponent_capture_point and legal:
-                # print("Option 01 Taken")
-                return move
-            else:
-                # print("Option 02 Taken")
-                # Captures enemies last move or returns None
-                return GoBoardUtil.find_capture_point(board, first_atari, color)
+            #     # print("Option 01 Taken")
+                possible_move_list.append(move)
+            
+            # print("Option 02 Taken")
+            # Captures enemies last move or returns None
+            capture_move = GoBoardUtil.find_capture_point(board, first_atari, color)
+            possible_move_list.append(capture_move)
+            # print("move is ", move, type(move), '\n')
+            # print("capture mvoe is , ", capture_move, type(capture_move), '\n')
+            # print("list is  ", possible_move_list, type(possible_move_list), '\n')
+            return possible_move_list
+
+
 
     def find_capture_point(board, point, color):
         # set of opponent points that do have been checked
@@ -284,10 +297,10 @@ class GoBoardUtil(object):
         if atari_capture_move:
             move = atari_capture_move
             return move
-        # atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        # if atari_defense_move:
-        #     move = atari_defense_move
-        #     return move
+        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        if atari_defense_move:
+            move = atari_defense_move
+            return move
         if use_pattern:
             moves = GoBoardUtil.generate_pattern_moves(board)
             move = GoBoardUtil.filter_moves_and_generate(board, moves, 
@@ -454,8 +467,16 @@ class GoBoardUtil(object):
         x , y : int
                 coordinates of the point  1 <= x, y <= size
         """
+        # result_list = list()
+        # if isinstance(point, list):
+        #     for item in point:
+        #         if point is None:
+        #             pass
+
+
         if point is None:
             return 'pass'
+        # print("point ", point, type(point), '\n')
         row, col = divmod(point, ns)
         return row,col
 
