@@ -90,7 +90,7 @@ class Go4Player(object):
                 for p in emptyPoints:
                     if not GoBoardUtil.filleye_filter(board, p, toplay):
                         moves.append(p)
-                moves.append(None) # None for Pass
+                        
                 
         if not moves: # pass move only, no need to simulate
             return None
