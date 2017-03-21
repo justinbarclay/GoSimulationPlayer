@@ -395,7 +395,9 @@ class GtpConnection():
             if move is None:
                 self.respond("pass")
                 return
-
+            # print("move ", move, type(move),"color ", color, type(color), '\n')
+            if isinstance(move, list):
+                move = move[0]
             if not self.board.check_legal(move, color):
                 move = self.board._point_to_coord(move)
                 board_move = GoBoardUtil.format_point(move)
@@ -407,6 +409,7 @@ class GtpConnection():
             self.debug_msg("Move: {}\nBoard: \n{}\n".format(move, str(self.board.get_twoD_board())))
             move = self.board._point_to_coord(move)
             board_move = GoBoardUtil.format_point(move)
+            # print("board_move ", board_move,type(board_move), '\n')
             self.respond(board_move)
         except Exception as e:
             self.respond('Error: {}'.format(str(e)))

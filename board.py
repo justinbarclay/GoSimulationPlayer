@@ -25,6 +25,8 @@ class GoBoard(object):
             Return:
             color
         """
+        if isinstance(point, list):
+            point = point[0]
         move_inspection, msg = self._play_move(point,color)
         if not move_inspection:
             return False

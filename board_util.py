@@ -22,6 +22,7 @@ class GoBoardUtil(object):
         for _ in range(limit):
             move = GoBoardUtil.generate_move_with_filter(board,pattern,check_selfatari)
             if move != None:
+                # print("move ", move,type(move), "color  ",  color,type(color), '\n')
                 isLegalMove = board.move(move,color)
                 assert isLegalMove
                 numPass = 0
@@ -89,8 +90,10 @@ class GoBoardUtil(object):
         if atari_capture_move:
             return [atari_capture_move], "AtariCapture"
         atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        if atari_defense_move:
+        # print(type(atari_defense_move))
+        if len(atari_defense_move)!=1 or atari_defense_move[0]!=None:
             return atari_defense_move, "AtariDefense"
+
         pattern_moves = GoBoardUtil.generate_pattern_moves(board)
         pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
         if len(pattern_moves) > 0:
@@ -178,7 +181,7 @@ class GoBoardUtil(object):
     def defends_atari(board, color):
         
         if board.last_move is None:
-            return None
+            return [None]
         possible_move_list=list()
         # get list of neghbouring points ot last move
         points = board._neighbors(board.last_move)
@@ -189,7 +192,6 @@ class GoBoardUtil(object):
             # If neigbour is our color and if it's in atari
             if board.board[point] == color and GoBoardUtil.captures_atari(board, point, GoBoardUtil.opponent(color)):
                 player_points.append(point)
-
         #print(str(player_points))
         if len(player_points) > 0:
             first_atari = player_points[0]
@@ -212,9 +214,8 @@ class GoBoardUtil(object):
             capture_move = GoBoardUtil.find_capture_point(board, first_atari, color)
             possible_move_list.append(capture_move)
             # print("move is ", move, type(move), '\n')
-            # print("capture mvoe is , ", capture_move, type(capture_move), '\n')
-            # print("list is  ", possible_move_list, type(possible_move_list), '\n')
             return possible_move_list
+        return [None]
 
 
 
@@ -293,14 +294,17 @@ class GoBoardUtil(object):
             use_pattern: Use pattern policy?
         """
         move = None
+        
+
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
-            move = [atari_capture_move]
-            return move
+            return atari_capture_move
         atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        if atari_defense_move:
-            move = atari_defense_move
-            return move
+        if len(atari_defense_move)!=1 or atari_defense_move[0]!=None:
+            return atari_defense_move
+
+
+
         if use_pattern:
             moves = GoBoardUtil.generate_pattern_moves(board)
             move = GoBoardUtil.filter_moves_and_generate(board, moves, 
@@ -358,7 +362,7 @@ class GoBoardUtil(object):
         The move converted from a tuple to a Go position (e.g. d4)
         """
         column_letters = "abcdefghjklmnopqrstuvwxyz"
-        if move is None:
+        if move is None or move == 'pass':
             return "pass"
         row, col = move
         if not 0 <= row < 25 or not 0 <= col < 25:
@@ -476,7 +480,7 @@ class GoBoardUtil(object):
 
         if point is None:
             return 'pass'
-        # print("point ", point, type(point), '\n')
+        # printpoint ", point, type(point), '\n')
         row, col = divmod(point, ns)
         return row,col
 
