@@ -74,24 +74,27 @@ class Go4Player(object):
 
 
         captureMove = GoBoardUtil.captures_atari(board, board.last_move, toplay)
-        captureDefense = GoBoardUtil.defends_atari(board, toplay)
+        
 
         if (captureMove):
             moves.append(captureMove)
-        elif (len(captureDefense)>1 or captureDefense[0]!=None):
-            for i in captureDefense:
-                if i == None:
-                   continue
-                moves.append(i)
-        
-        emptyPoints = board.get_empty_points()
-        for p in emptyPoints:
-            if not GoBoardUtil.filleye_filter(board, p, toplay):
-                moves.append(p)
-        
+        else:
+            captureDefense = GoBoardUtil.defends_atari(board, toplay)
+            if (len(captureDefense)>1 or captureDefense[0]!=None):
+                for i in captureDefense:
+                    if i == None:
+                       continue
+                    moves.append(i)
+            else:
+                emptyPoints = board.get_empty_points()
+                for p in emptyPoints:
+                    if not GoBoardUtil.filleye_filter(board, p, toplay):
+                        moves.append(p)
+                moves.append(None) # None for Pass
+                
         if not moves: # pass move only, no need to simulate
             return None
-        moves.append(None) # None for Pass
+        
         moveWins = []
         for move in moves:
             wins = self.simulateMove(board, cboard, move, toplay)
