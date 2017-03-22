@@ -1,15 +1,15 @@
 (;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[5]
-KM[6.5]PB[Go3]PW[Go4]DT[2017-03-20]RE[W+31.5]
-C[Black command: engines/Go3/Go3/Go3.py
-White command: Go4.py
+KM[6.5]PB[Go3]PW[Go4]DT[2017-03-21]RE[B+18.5]
+C[Black command: python3 engines/Go3/Go3/Go3.py
+White command: python3 Go4.py
 Black version: 0.22
 White version: 0.3
-Result[Black\]: W+31.5
-Result[White\]: W+31.5
-Host: Sann (Intel(R) Core(TM) i5-4300U CPU @ 1.90GHz)
-Date: March 20, 2017 6:11:50 AM MDT]
-;B[cd];W[cb];B[bb];W[dd];B[eb];W[ec];B[da];W[de];B[ad];W[be]
-;B[bd];W[cc];B[db];W[bc];B[ab];W[dc];B[ba];W[ac];B[];W[ae]
-;B[ce];W[be];B[];W[ae];B[bd];W[ce];B[ee];W[ed];B[ad];W[cd]
-;B[ad];W[bd];B[aa];W[ca];B[ab];W[bb];B[aa];W[ba];B[ab];W[aa]
-;B[];W[ea];B[db];W[eb];B[];W[da];B[];W[])
+Result[Black\]: B+18.5
+Result[White\]: B+18.5
+Host: Michaels-MacBook-Pro.local
+Date: March 21, 2017 7:53:07 PM MDT]
+;B[cb];W[de];B[bd];W[ce];B[ca];W[cd];B[ac];W[ed];B[dc];W[bc]
+;B[cc];W[be];B[bb];W[dd];B[ad];W[ae];B[ab];W[ec];B[db];W[eb]
+;B[aa];W[da];B[ea];W[];B[ee];W[ae];B[be];W[ce];B[ae];W[de]
+;B[cd];W[dd];B[ed];W[ce];B[de];W[ec];B[ce];W[];B[dd];W[]
+;B[bc];W[];B[eb];W[];B[ec];W[];B[])

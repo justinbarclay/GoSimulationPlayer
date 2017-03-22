@@ -7,7 +7,7 @@ import sys
 from pattern import pat3set
 
 parser = argparse.ArgumentParser(description='Process Arguments for number of simulation')
-parser.add_argument('-s','--sim',type=int, nargs='?', default=10, help='define number of simulations for each legal move, #playout --> sim*num_of_legal_moves')
+parser.add_argument('-s','--sim',type=int, nargs='?', default=50, help='define number of simulations for each legal move, #playout --> sim*num_of_legal_moves')
 args = parser.parse_args()
 num_simulation = args.sim
 
