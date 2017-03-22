@@ -89,10 +89,11 @@ class GoBoardUtil(object):
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
             return [atari_capture_move], "AtariCapture"
-        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        # print(type(atari_defense_move))
-        if len(atari_defense_move)!=1 or atari_defense_move[0]!=None:
-            return atari_defense_move, "AtariDefense"
+
+        # atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        # # print(type(atari_defense_move))
+        # if len(atari_defense_move)!=1 or atari_defense_move[0]!=None:
+        #     return atari_defense_move, "AtariDefense"
 
         pattern_moves = GoBoardUtil.generate_pattern_moves(board)
         pattern_moves = GoBoardUtil.filter_moves(board, pattern_moves, check_selfatari)
@@ -299,11 +300,10 @@ class GoBoardUtil(object):
         atari_capture_move = GoBoardUtil.captures_atari(board,board.last_move, board.current_player)
         if atari_capture_move:
             return atari_capture_move
-        atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
-        if len(atari_defense_move)!=1 or atari_defense_move[0]!=None:
-            return atari_defense_move
 
-
+        # atari_defense_move = GoBoardUtil.defends_atari(board, board.current_player)
+        # if len(atari_defense_move)!=1 or atari_defense_move[0]!=None:
+        #     return atari_defense_move
 
         if use_pattern:
             moves = GoBoardUtil.generate_pattern_moves(board)
@@ -312,12 +312,6 @@ class GoBoardUtil(object):
         if move == None:
             move = GoBoardUtil.generate_random_move(board)
         return move 
-
-        
-        
-        
-
-
 
     
     @staticmethod
