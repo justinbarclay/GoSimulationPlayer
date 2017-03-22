@@ -1,0 +1,14 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[5]
+KM[6.5]PB[Go4:0.3]PW[Go4:0.3]DT[2017-03-21]RE[W+31.5]
+C[Black command: python engines/Go4Original/Go4/Go4.py
+White command: python Go4.py
+Black version: 0.3
+White version: 0.3
+Result[Black\]: W+31.5
+Result[White\]: W+31.5
+Host: Sigyn.hitronhub.home
+Date: March 21, 2017 8:08:40 PM MDT]
+;B[bc];W[cb];B[bb];W[db];B[ae];W[dd];B[dc];W[cc];B[ad];W[ce]
+;B[cd];W[bd];B[ac];W[ee];B[eb];W[be];B[ed];W[ec];B[ab];W[aa]
+;B[ba];W[ca];B[da];W[ea];B[];W[aa];B[ae];W[ad];B[ac];W[bc]
+;B[ab];W[bb];B[ac];W[ab];B[];W[])
