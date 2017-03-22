@@ -1,14 +1,14 @@
 (;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[5]
-KM[6.5]PB[Go4:0.3]PW[Go4:0.3]DT[2017-03-20]RE[B+18.5]
-C[Black command: engines/Go4Original/Go4/Go4.py
-White command: Go4.py
+KM[6.5]PB[Go4:0.3]PW[Go4:0.3]DT[2017-03-22]RE[W+31.5]
+C[Black command: python3 engines/Go4Original/Go4/Go4.py
+White command: python3 Go4.py
 Black version: 0.3
 White version: 0.3
-Result[Black\]: B+18.5
-Result[White\]: B+18.5
-Host: uc05 (Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz)
-Date: March 20, 2017 7:59:42 AM MDT]
-;B[cc];W[dc];B[db];W[bd];B[cd];W[dd];B[de];W[ac];B[be];W[ae]
-;B[ed];W[ce];B[ec];W[aa];B[dc];W[be];B[bc];W[ad];B[ab];W[ae]
-;B[be];W[ad];B[bd];W[bb];B[ac];W[ae];B[ad];W[cb];B[eb];W[ba]
-;B[ca];W[bb];B[cb];W[aa];B[ba];W[da];B[ea];W[];B[])
+Result[Black\]: W+31.5
+Result[White\]: W+31.5
+Host: ASGARD (Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz)
+Date: March 22, 2017 1:55:03 AM GMT]
+;B[bc];W[dc];B[db];W[cc];B[dd];W[bd];B[cd];W[ad];B[eb];W[ae]
+;B[de];W[cb];B[be];W[ce];B[bb];W[ed];B[ec];W[ee];B[ba];W[de]
+;B[ac];W[cd];B[ab];W[ca];B[da];W[ea];B[ec];W[eb];B[db];W[da]
+;B[];W[aa];B[ac];W[bc];B[ab];W[bb];B[ac];W[ab];B[];W[])
