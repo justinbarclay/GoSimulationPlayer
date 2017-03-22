@@ -1,0 +1,15 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[5]
+KM[6.5]PB[Go4:0.3]PW[Go4:0.3]DT[2017-03-22]RE[B+18.5]
+C[Black command: python3 engines/Go4Original/Go4/Go4.py
+White command: python3 Go4.py
+Black version: 0.3
+White version: 0.3
+Result[Black\]: B+18.5
+Result[White\]: B+18.5
+Host: ASGARD (Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz)
+Date: March 22, 2017 12:57:32 AM GMT]
+;B[dd];W[ad];B[cc];W[ed];B[dc];W[ce];B[bd];W[bb];B[de];W[be]
+;B[cd];W[ee];B[ac];W[db];B[eb];W[ab];B[ba];W[ea];B[ae];W[be]
+;B[ce];W[ec];B[cb];W[bc];B[ad];W[eb];B[aa];W[bc];B[ab];W[ca]
+;B[bb];W[];B[da];W[ee];B[ed];W[ec];B[db];W[eb];B[ea];W[ec]
+;B[eb];W[];B[])
