@@ -1,0 +1,15 @@
+(;FF[4]CA[UTF-8]AP[gogui-twogtp:1.4.9]SZ[5]
+KM[6.5]PB[Go3]PW[Go4]DT[2017-03-21]RE[B+18.5]
+C[Black command: python3 engines/Go3/Go3/Go3.py
+White command: python3 Go4.py
+Black version: 0.22
+White version: 0.3
+Result[Black\]: B+18.5
+Result[White\]: B+18.5
+Host: Michaels-MacBook-Pro.local
+Date: March 21, 2017 7:19:07 PM MDT]
+;B[ee];W[bb];B[cc];W[bc];B[bd];W[cd];B[ba];W[ac];B[cb];W[ed]
+;B[ce];W[be];B[dd];W[dc];B[db];W[ca];B[cd];W[ad];B[ae];W[de]
+;B[ab];W[ee];B[ad];W[ac];B[be];W[bc];B[ec];W[de];B[ee];W[eb]
+;B[de];W[da];B[ed];W[];B[bb];W[ac];B[bc];W[];B[ac];W[]
+;B[ea];W[ca];B[dc];W[];B[eb];W[];B[da];W[];B[])
